@@ -12,9 +12,4 @@ class PlanController extends Controller
         $plans = Plan::where('active', true)->get();
         return response()->json(new PlanResource($plans), 200);
     }
-
-    public function show(Plan $plan)
-    {
-        return response()->json(new PlanResource($plan), 200);
-    }
 }
