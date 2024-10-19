@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PlanResource;
 use App\Models\Plan;
 
 class PlanController extends Controller
 {
-    /**
-     * Display a listing of the plans.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return Plan::all();
+        $plans = Plan::where('active', true)->get();
+        return response()->json(new PlanResource($plans), 200);
+    }
+
+    public function show(Plan $plan)
+    {
+        return response()->json(new PlanResource($plan), 200);
     }
 }
