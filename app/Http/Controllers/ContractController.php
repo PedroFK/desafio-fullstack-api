@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreContractRequest;
+use App\Http\Requests\UpdateContractRequest;
 use App\Http\Resources\ContractResource;
 use App\Models\Contract;
 use Illuminate\Http\Request;
@@ -35,14 +37,8 @@ class ContractController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreContractRequest $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'plan_id' => 'required|exists:plans,id',
-            'start_date' => 'required|date',
-        ]);
-
         Contract::where('user_id', $request->user_id)
             ->where('active', true)
             ->update(['active' => false, 'end_date' => now()]);
@@ -86,12 +82,8 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contract $contract)
+    public function update(UpdateContractRequest  $request, Contract $contract)
     {
-        $request->validate([
-            'plan_id' => 'required|exists:plans,id',
-        ]);
-
         $contract->update(['active' => false, 'end_date' => now()]);
 
         $newContract = Contract::create([

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Contract;
 use App\Models\Payment;
@@ -36,14 +37,8 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePaymentRequest $request)
     {
-        $request->validate([
-            'contract_id' => 'required|exists:contracts,id',
-            'amount' => 'required|numeric|min:0',
-            'payment_date' => 'required|date',
-        ]);
-
         $payment = Payment::create($request->all());
 
         return response()->json(new PaymentResource($payment), 201);
