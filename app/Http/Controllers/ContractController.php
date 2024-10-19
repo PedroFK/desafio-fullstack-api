@@ -18,7 +18,7 @@ class ContractController extends Controller
     public function index(Request $request, $userId)
     {
         $contracts = Contract::where('user_id', $userId)->get();
-        return response()->json(new ContractResource($contracts), 200);
+        return response()->json(ContractResource::collection($contracts), 200);
     }
 
     /**

@@ -10,6 +10,6 @@ class PlanController extends Controller
     public function index()
     {
         $plans = Plan::where('active', true)->get();
-        return response()->json(new PlanResource($plans), 200);
+        return response()->json(PlanResource::collection($plans), 200);
     }
 }

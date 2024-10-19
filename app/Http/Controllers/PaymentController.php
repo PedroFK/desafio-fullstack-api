@@ -18,7 +18,7 @@ class PaymentController extends Controller
     public function index(Contract $contract)
     {
         $payments = $contract->payments()->get();
-        return response()->json(new PaymentResource($payments), 200);
+        return response()->json(PaymentResource::collection($payments), 200);
     }
 
     /**
