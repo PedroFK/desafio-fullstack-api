@@ -11,8 +11,8 @@ class Plan extends Model
 
     protected $fillable = [
         'description',
-        'numberOfClients',
-        'gigabytesStorage',
+        'clients_count',
+        'gigabytes_storage',
         'price',
         'active',
     ];

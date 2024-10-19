@@ -17,8 +17,8 @@ class PlanResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'numberOfClients' => $this->numberOfClients,
-            'gigabytesStorage' => $this->gigabytesStorage,
+            'clients_count' => $this->clients_count,
+            'gigabytes_storage' => $this->gigabytes_storage,
             'price' => $this->price,
             'active' => $this->active,
         ];
