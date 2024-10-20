@@ -6,11 +6,21 @@ use App\Http\Requests\StoreContractRequest;
 use App\Http\Requests\UpdateContractRequest;
 use App\Http\Resources\ContractResource;
 use App\Models\Contract;
+use App\Models\Payment;
+use App\Models\Plan;
+use App\Services\ContractService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ContractController extends Controller
 {
+    protected $contractService;
+
+    public function __construct(ContractService $contractService)
+    {
+        $this->contractService = $contractService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,18 +50,13 @@ class ContractController extends Controller
      */
     public function store(StoreContractRequest $request)
     {
-        Contract::where('user_id', $request->user_id)
-            ->where('active', true)
-            ->update(['active' => false, 'end_date' => now()]);
+        $result = $this->contractService->store($request->user_id, $request->plan_id);
 
-        $contract = Contract::create([
-            'user_id' => $request->user_id,
-            'plan_id' => $request->plan_id,
-            'active' => true,
-            'start_date' => $request->start_date,
-        ]);
+        if ($result instanceof \Illuminate\Http\JsonResponse) {
+            return $result; // Se for um erro, já retornamos a resposta JSON.
+        }
 
-        return response()->json(new ContractResource($contract), 201);
+        return response()->json($result, 201);
     }
 
     /**
@@ -83,18 +88,9 @@ class ContractController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateContractRequest  $request, Contract $contract)
+    public function update(UpdateContractRequest $request, Contract $contract)
     {
-        $contract->update(['active' => false, 'end_date' => now()]);
-
-        $newContract = Contract::create([
-            'user_id' => $contract->user_id,
-            'plan_id' => $request->plan_id,
-            'active' => true,
-            'start_date' => now(),
-        ]);
-
-        return response()->json(new ContractResource($newContract), 201);
+        //
     }
 
     /**
