@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('plan_id')->constrained()->onDelete('cascade');
             $table->boolean('active')->default(true);
+            $table->decimal('credit', 13, 2)->default(0);
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->timestamps();

@@ -19,6 +19,7 @@ class ContractResource extends JsonResource
             'user_id' => $this->user_id,
             'plan' => new PlanResource($this->plan),
             'active' => $this->active,
+            'credit' => $this->credit,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
         ];

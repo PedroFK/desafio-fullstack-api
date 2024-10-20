@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('contract_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 13, 2);
-            $table->date('payment_date');
+            $table->dateTime('payment_date');
             $table->timestamps();
         });
     }

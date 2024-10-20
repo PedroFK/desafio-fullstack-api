@@ -13,6 +13,7 @@ class Contract extends Model
         'user_id',
         'plan_id',
         'active',
+        'credit',
         'start_date',
         'end_date',
     ];
