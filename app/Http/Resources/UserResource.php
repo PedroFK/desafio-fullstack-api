@@ -18,8 +18,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'active_plan' => new PlanResource($this->activePlan),
-            'contracts' => ContractResource::collection($this->contracts),
+            'activeContract' => new ContractResource($this->activeContract),
         ];
     }
 }

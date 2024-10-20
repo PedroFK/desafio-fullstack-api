@@ -24,12 +24,6 @@ class User extends Model
 
     public function activeContract()
     {
-        return $this->hasOne(Contract::class)->where('active', true);
-    }
-
-    public function activePlan()
-    {
-        return $this->hasOneThrough(Plan::class, Contract::class)
-            ->where('contracts.active', true);
+        return $this->hasOne(Contract::class)->where('active', true)->with('plan');
     }
 }
